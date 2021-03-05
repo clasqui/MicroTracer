@@ -151,7 +151,7 @@ int MicroTracer_event(mt_event_type_t type, int value) {
     events[n_event].thread_id = 1;
 
     #ifdef MT_USE_TIMER1
-    events[n_event].timestamp_us = micros_timer1();
+    events[n_event].timestamp_us = micros_timer1_ctc();
     #else
     events[n_event].timestamp_us = micros();
     #endif
