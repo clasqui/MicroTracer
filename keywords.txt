@@ -1,0 +1,17 @@
+# Syntax Coloring Map For ExampleLibrary
+
+# Datatypes (KEYWORD1)
+mt_event_type_t KEYWORD1
+mt_event_t KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+MicroTracer_init KEYWORD2
+MicroTracer_finish KEYWORD2
+MicroTracer_flushEvents KEYWORD2
+MicroTracer_event KEYWORD2
+MicroTracer_define_event_type KEYWORD2
+incrementalOverflowTimer1 KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Constants (LITERAL1)

@@ -1,3 +1,9 @@
+/*
+  MicroTracer.h - Llibreria per instrumentar codi i obtenir traces de l'execucio
+  Creada per Marc Clasca Ramirez, Març 2021.
+  Released into the public domain.
+*/
+
 #ifndef MicroTracer_H
 #define MicroTracer_H
 

@@ -1,0 +1,22 @@
+{
+  "name": "MicroTracer",
+  "version": "1.0.0",
+  "description": "Instrument your microcontroller code to get a trace of the execution. Easily discover which things happen inside your microcontroller and how long they take, visualizing the trace with the Paraver tool.",
+  "keywords": "debug, trace, performance, instrumentation",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/clasqui/MicroTracer"
+  },
+  "authors":
+  [
+    {
+      "name": "Marc Clascà Ramírez",
+      "email": "marc.clasca@estudiantat.upc.edu",
+      "url": "clasqui.github.io"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "atmelavr"
+}
