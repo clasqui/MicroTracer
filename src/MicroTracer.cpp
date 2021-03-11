@@ -7,6 +7,7 @@
 mt_event_t events[EVENT_BUFF_SIZE];
 char tracing = 0;
 int n_event = 0;
+mt_timer_mode_t _useTimer;
 
 struct Event_definition *definitions;
 struct Event_definition *last_event_definition;
@@ -21,12 +22,12 @@ volatile int isr_timer1_overflow_count;
  * Llegeix el temps d'execució del TIMER1 quan està en mode CTC, a l'arquitectura ATmega
  * Aquesta funció requereix que la variable `isr_timer1_overflow_count` s'incrementi per la rutina de 
  * servei de la interrupció del TIMER1.  S'utilitza per llegir el temps en microsegons per les funcions de traceig d'events,
- * en el cas que la macro MT_USE_TIMER1 estigui definida en temps de compilació.
+ * en el cas que la variable _useTimer estigui valgui 1 (mode MT_USE_TIMER1).
  * 
  * @return Temps en microsegons
  * */
 unsigned long micros_timer1_ctc() {
-    return 4*(OCR1A*isr_timer1_overflow_count+TCNT1)/(F_CPU / 1000000);
+    return 64*(OCR1A*isr_timer1_overflow_count+TCNT1)/(F_CPU / 1000000);
 }
 
 
@@ -45,11 +46,13 @@ void incrementOverflowTimer1() {
  * @name MicroTracer_Init()
  * Inicialitza el sistema de traceig.
  * Posa les variables inicials, crea event de flushing, i activa el traceig (variable tracing)
+ * @param mt_timer_mode_t timerMode Indica el timer que es vol utilitzar per les mesures de temps
  * 
  **/
-void MicroTracer_init() {
+void MicroTracer_init(mt_timer_mode_t timerMode) {
     tracing = 1;
     isr_timer1_overflow_count = 0;
+    _useTimer = timerMode;
 
     definitions = NULL;
     last_event_definition = NULL;
@@ -150,11 +153,11 @@ int MicroTracer_event(mt_event_type_t type, int value) {
     events[n_event].event_value = value;
     events[n_event].thread_id = 1;
 
-    #ifdef MT_USE_TIMER1
+    if(_useTimer ==  MT_USE_TIMER1) {
     events[n_event].timestamp_us = micros_timer1_ctc();
-    #else
+    } else {
     events[n_event].timestamp_us = micros();
-    #endif
+    }
 
     n_event++;
     return n_event;
